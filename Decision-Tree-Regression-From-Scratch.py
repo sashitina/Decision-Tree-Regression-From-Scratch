@@ -7,11 +7,7 @@
 import numpy as np
 import pandas as pd
 
-
-# Node class
-
-# In[2]:
-
+# node class
 
 class Node:
     def __init__(self, feature_index=None, threshold=None, left=None, right=None, gain=None, value=None):
@@ -22,11 +18,7 @@ class Node:
         self.gain = gain
         self.value = value
 
-
-# Tree class
-
-# In[3]:
-
+# tree class
 
 class DecisionTreeRegressor():
     def __init__(self, min_samples_split=2, max_depth=2):
@@ -154,9 +146,7 @@ class DecisionTreeRegressor():
         preditions = [self.make_prediction(x, self.root) for x in X]
         return preditions
 
-
-# In[4]:
-
+# data loading
 
 from sklearn.datasets import load_boston
 from sklearn.model_selection import train_test_split
@@ -166,31 +156,15 @@ from sklearn.metrics import mean_squared_error
 
 boston = load_boston()
 
-
-# In[5]:
-
-
 X_train, X_test, y_train, y_test = train_test_split(boston.data, boston.target, test_size=0.25, random_state=1)
-
-
-# In[6]:
-
 
 regressor = DecisionTreeRegressor(min_samples_split=3, max_depth=3)
 regressor.fit(X_train,y_train)
 
-
-# In[7]:
-
-
 y_pred = regressor.predict(X_test) 
-np.sqrt(mean_squared_error(y_test, y_pred))
+print('Custom DesicionTreeRegressor RMSE:', np.sqrt(mean_squared_error(y_test, y_pred)))
 
-
-# Сравним с алгоритмом из библиотеки sсikit-learn:
-
-# In[8]:
-
+# comparing with DecisionTreeRegressor algorithm from sklearn
 
 from sklearn.tree import DecisionTreeRegressor
 
@@ -198,5 +172,5 @@ sk_model = DecisionTreeRegressor(min_samples_split=3, max_depth=3)
 sk_model.fit(X_train, y_train)
 sk_preds = sk_model.predict(X_test)
 
-np.sqrt(mean_squared_error(y_test, sk_preds))
+print('Scikit-learn DesicionTreeRegressor RMSE:', np.sqrt(mean_squared_error(y_test, sk_preds)))
 
